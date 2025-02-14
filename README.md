@@ -1,0 +1,1 @@
+# Gestion-de-calidad_Vanguardia
