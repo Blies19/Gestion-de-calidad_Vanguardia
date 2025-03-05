@@ -13,3 +13,16 @@ backend/
 ├── pom.xml                 # Dependencias de Maven
 ├── application.properties   # Configuración del sistema
 ```
+```
+frontend/
+├── src/
+│   ├── components/          # Componentes reutilizables (Navbar, Sidebar, etc.)
+│   ├── pages/               # Rutas principales
+│   ├── services/            # Llamadas a API
+│   ├── hooks/               # Custom hooks para React Query
+│   ├── context/             # Manejo de autenticación y estado global
+│   ├── styles/              # Estilos globales con Tailwind
+├── package.json             # Dependencias del proyecto
+├── tailwind.config.js       # Configuración de Tailwind
+├── next.config.js           # Configuración de Next.js
+```
