@@ -1,28 +1,104 @@
 # Gestion-de-calidad_Vanguardia
 ```
-backend/
-├── src/main/java/com/sgc/backend
-│   ├── config/             # Configuración de seguridad, CORS, JWT, etc.
-│   ├── controllers/        # Controladores REST
-│   ├── services/           # Lógica de negocio
-│   ├── repositories/       # Acceso a datos con JPA
-│   ├── models/             # Entidades de la BD
-│   ├── dtos/               # DTOs para transferencia de datos
-│   ├── utils/              # Clases utilitarias
-│   ├── exceptions/         # Manejo de errores globales
-├── pom.xml                 # Dependencias de Maven
-├── application.properties   # Configuración del sistema
+/backend
+  ├── src/
+  │   ├── main/
+  │   │   ├── java/com/sgc/
+  │   │   │   ├── auth/                      # Autenticación (Login/Signup)
+  │   │   │   │   ├── AuthController.java    # Endpoints (/login, /signup)
+  │   │   │   │   ├── AuthService.java       # Lógica de negocio
+  │   │   │   │   └── JwtService.java        # Generación/validación de JWT
+  │   │   │   ├── config/
+  │   │   │   │   ├── SecurityConfig.java    # Configuración de Spring Security
+  │   │   │   │   └── WebMvcConfig.java     # Configuración CORS/MVC
+  │   │   │   ├── controller/                # Otros controllers
+  │   │   │   │   └── DocumentController.java # Gestión de documentos
+  │   │   │   ├── dto/                       # Objetos de transferencia
+  │   │   │   │   ├── requests/              # DTOs para solicitudes (ej: LoginRequest)
+  │   │   │   │   └── responses/             # DTOs para respuestas
+  │   │   │   ├── exception/                 # Manejo de errores
+  │   │   │   │   └── GlobalExceptionHandler.java
+  │   │   │   ├── model/                     # Entidades JPA
+  │   │   │   │   ├── Usuario.java           # Modelo de usuario
+  │   │   │   │   └── Documento.java         # Modelo de documento
+  │   │   │   ├── repository/                # Repositorios (JPA)
+  │   │   │   │   ├── UsuarioRepository.java
+  │   │   │   │   └── DocumentoRepository.java
+  │   │   │   ├── service/                   # Servicios
+  │   │   │   │   ├── DocumentService.java   # Lógica de documentos
+  │   │   │   │   └── EmailService.java      # Notificaciones por correo
+  │   │   │   └── SgcApplication.java        # Clase principal (main)
+  │   │   └── resources/
+  │   │       ├── application.properties      # Config BD, JWT, etc.
+  │   │       └── static/                    # Archivos estáticos (opcional)
+  │   └── test/                              # Pruebas unitarias
+  └── pom.xml                                # Dependencias de Maven
 ```
 ```
-frontend/
-├── src/
-│   ├── components/          # Componentes reutilizables (Navbar, Sidebar, etc.)
-│   ├── pages/               # Rutas principales
-│   ├── services/            # Llamadas a API
-│   ├── hooks/               # Custom hooks para React Query
-│   ├── context/             # Manejo de autenticación y estado global
-│   ├── styles/              # Estilos globales con Tailwind
-├── package.json             # Dependencias del proyecto
-├── tailwind.config.js       # Configuración de Tailwind
-├── next.config.js           # Configuración de Next.js
+/frontend
+  ├── public/                      # Assets estáticos (imágenes, favicon)
+  │   ├── images/                  # Imágenes globales
+  │   └── docs/                    # PDFs/archivos descargables (opcional)
+  │
+  ├── src/
+  │   ├── app/                     # Ruteo basado en app/ (Next.js 13+)
+  │   │   ├── (auth)/              # Grupo de rutas de autenticación
+  │   │   │   ├── login/           # Página de inicio de sesión
+  │   │   │   │   ├── page.tsx
+  │   │   │   │   └── form.tsx     # Componente del formulario reutilizable
+  │   │   │   └── signup/          # Página de registro
+  │   │   │       ├── page.tsx
+  │   │   │       └── form.tsx
+  │   │   │
+  │   │   ├── (admin)/             # Rutas protegidas para administradores
+  │   │   │   ├── dashboard/
+  │   │   │   │   └── page.tsx
+  │   │   │   └── layout.tsx       # Layout específico para admin
+  │   │   │
+  │   │   ├── (user)/              # Rutas protegidas para investigadores
+  │   │   │   ├── documents/
+  │   │   │   │   └── page.tsx
+  │   │   │   └── layout.tsx
+  │   │   │
+  │   │   ├── api/                 # API routes (opcional, para proxies)
+  │   │   │   └── auth/[...nextauth]/route.ts
+  │   │   │
+  │   │   ├── globals.css          # Estilos globales
+  │   │   ├── layout.tsx           # Layout raíz
+  │   │   └── page.tsx             # Página de inicio (landing)
+  │   │
+  │   ├── components/              # Componentes reutilizables
+  │   │   ├── auth/
+  │   │   │   ├── AuthGuard.tsx    # HOC para protección de rutas
+  │   │   │   └── SocialButtons.tsx
+  │   │   ├── ui/
+  │   │   │   ├── button.tsx       # Componentes UI personalizados
+  │   │   │   └── table.tsx
+  │   │   └── documents/
+  │   │       └── UploadModal.tsx
+  │   │
+  │   ├── contexts/                # Contextos de React
+  │   │   └── AuthContext.tsx
+  │   │
+  │   ├── hooks/                   # Hooks personalizados
+  │   │   ├── useAuth.ts
+  │   │   └── useDocuments.ts
+  │   │
+  │   ├── lib/                     # Librerías/utils
+  │   │   ├── api/
+  │   │   │   └── client.ts        # Cliente HTTP (axios/fetch configurado)
+  │   │   └── constants.ts         # Constantes globales
+  │   │
+  │   ├── styles/                  # Estilos modulares
+  │   │   ├── variables.css
+  │   │   └── animations.css
+  │   │
+  │   └── types/                   # Tipos TypeScript
+  │       ├── document.ts
+  │       └── user.ts
+  │
+  ├── .env.local                   # Variables de entorno (ej: NEXT_PUBLIC_API_URL)
+  ├── next.config.mjs              # Config de Next.js
+  ├── tailwind.config.mjs          # Config de Tailwind
+  └── tsconfig.json                # Config TypeScript
 ```
