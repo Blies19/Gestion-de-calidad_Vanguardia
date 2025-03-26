@@ -1,0 +1,11 @@
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\dto\request\SignupRequest.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\dto\request\LoginRequest.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\repository\UsuarioRepository.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\dto\response\AuthResponse.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\SgcApplication.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\auth\AuthController.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\auth\AuthService.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\config\SecurityConfig.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\config\JwtService.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\model\Usuario.java
+C:\Users\tyger\OneDrive\Documentos\1UCQ\8vo Cuatrimestre\Vanguardia\Gestion-de-calidad_Vanguardia\backend\src\main\java\com\sgc\auth\JwService.java

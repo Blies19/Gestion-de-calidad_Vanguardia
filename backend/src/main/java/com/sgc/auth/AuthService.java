@@ -1,38 +1,32 @@
 package com.sgc.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import com.sgc.config.JwtService; // Asegúrate que esta clase existe
+import com.sgc.model.Usuario; // Asegúrate que esta clase existe
+import com.sgc.repository.UsuarioRepository; // Asegúrate que esta interfaz existe
+
 @Service
 public class AuthService {
-
+    
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
+    private UsuarioRepository usuarioRepo;
+    
+    @Autowired
+    private JwtService jwtService;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtService jwtService;
-
-    public String authenticateUser(String correo, String contraseña) {
-        Usuario usuario = usuarioRepository.findByCorreo(correo)
+    public String login(String email, String password) {
+        Usuario usuario = usuarioRepo.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        if (!passwordEncoder.matches(contraseña, usuario.getContraseña())) {
+        
+        if (!passwordEncoder.matches(password, usuario.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
-
+        
         return jwtService.generateToken(usuario);
-    }
-
-    public Usuario registerUser(String nombre, String correo, String contraseña) {
-        if (usuarioRepository.existsByCorreo(correo)) {
-            throw new RuntimeException("El correo ya está registrado");
-        }
-
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setCorreo(correo);
-        usuario.setContraseña(passwordEncoder.encode(contraseña));
-
-        return usuarioRepository.save(usuario);
     }
 }

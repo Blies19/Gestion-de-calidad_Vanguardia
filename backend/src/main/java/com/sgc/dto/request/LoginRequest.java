@@ -1,8 +1,8 @@
 package com.sgc.dto.request;
 
 public class LoginRequest {
-    private String correo;
-    private String contraseña;
-
-    // Getters y Setters
+    private String email;
+    private String password;
+    
+    // Getters y setters
 }

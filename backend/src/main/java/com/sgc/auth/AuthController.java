@@ -3,37 +3,28 @@ package com.sgc.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.sgc.dto.request.LoginRequest; // Asegúrate que esta clase existe
+import com.sgc.dto.request.SignupRequest; // Asegúrate que esta clase existe
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
 
+
+public class AuthController {
+    
     @Autowired
     private AuthService authService;
 
-    // Endpoint para login (POST /api/auth/login)
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        try {
-            String token = authService.authenticateUser(request.getCorreo(), request.getContraseña());
-            return ResponseEntity.ok().body(Map.of("token", token));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request) {
+        String token = authService.login(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok().body(Map.of("token", token));
     }
 
-    // Endpoint para registro (POST /api/auth/signup)
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupRequest request) {
-        try {
-            Usuario nuevoUsuario = authService.registerUser(
-                request.getNombre(),
-                request.getCorreo(),
-                request.getContraseña()
-            );
-            return ResponseEntity.ok(nuevoUsuario);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
+    public ResponseEntity<Usuario> signup(@RequestBody SignupRequest request) {
+        Usuario usuario = authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 }
