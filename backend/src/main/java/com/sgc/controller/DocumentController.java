@@ -20,7 +20,17 @@ public class DocumentController {
     public ResponseEntity<Resource> downloadDocument(@PathVariable Long id) {
         Resource resource = documentService.downloadDocument(id);
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-            .body(resource);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
+    @GetMapping("/reports")
+    public ResponseEntity<List<DocumentReportDTO>> getReports(
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
+            @RequestParam(required = false) Boolean missingOnly) {
+
+        List<DocumentReportDTO> reports = documentService.getFilteredDocuments(startDate, endDate, missingOnly);
+        return ResponseEntity.ok(reports);
     }
 }
