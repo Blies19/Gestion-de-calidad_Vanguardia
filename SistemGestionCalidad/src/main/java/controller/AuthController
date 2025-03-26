@@ -1,0 +1,29 @@
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        userService.register(user);
+        return ResponseEntity.ok("Usuario registrado exitosamente");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+            );
+            final String jwt = jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
+            return ResponseEntity.ok(new AuthResponse(jwt));
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Credenciales inválidas");
+        }
+    }
+}
