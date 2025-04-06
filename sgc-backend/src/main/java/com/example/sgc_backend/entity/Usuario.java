@@ -1,12 +1,14 @@
 package com.example.sgc_backend.entity;
 
 import lombok.Data;
+import lombok.Builder;  // Agregar esta importación
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usuario")
 @Data
+@Builder  // Aquí agregamos la anotación Builder
 public class Usuario {
     @Id
     @GeneratedValue(generator = "uuid")

@@ -1,38 +1,23 @@
 # Gestion-de-calidad_Vanguardia
 ```
-/backend
-  ├── src/
-  │   ├── main/
-  │   │   ├── java/com/sgc/
-  │   │   │   ├── auth/                      # Autenticación (Login/Signup)
-  │   │   │   │   ├── AuthController.java    # Endpoints (/login, /signup)
-  │   │   │   │   ├── AuthService.java       # Lógica de negocio
-  │   │   │   │   └── JwtService.java        # Generación/validación de JWT
-  │   │   │   ├── config/
-  │   │   │   │   ├── SecurityConfig.java    # Configuración de Spring Security
-  │   │   │   │   └── WebMvcConfig.java     # Configuración CORS/MVC
-  │   │   │   ├── controller/                # Otros controllers
-  │   │   │   │   └── DocumentController.java # Gestión de documentos
-  │   │   │   ├── dto/                       # Objetos de transferencia
-  │   │   │   │   ├── requests/              # DTOs para solicitudes (ej: LoginRequest)
-  │   │   │   │   └── responses/             # DTOs para respuestas
-  │   │   │   ├── exception/                 # Manejo de errores
-  │   │   │   │   └── GlobalExceptionHandler.java
-  │   │   │   ├── model/                     # Entidades JPA
-  │   │   │   │   ├── Usuario.java           # Modelo de usuario
-  │   │   │   │   └── Documento.java         # Modelo de documento
-  │   │   │   ├── repository/                # Repositorios (JPA)
-  │   │   │   │   ├── UsuarioRepository.java
-  │   │   │   │   └── DocumentoRepository.java
-  │   │   │   ├── service/                   # Servicios
-  │   │   │   │   ├── DocumentService.java   # Lógica de documentos
-  │   │   │   │   └── EmailService.java      # Notificaciones por correo
-  │   │   │   └── SgcApplication.java        # Clase principal (main)
-  │   │   └── resources/
-  │   │       ├── application.properties      # Config BD, JWT, etc.
-  │   │       └── static/                    # Archivos estáticos (opcional)
-  │   └── test/                              # Pruebas unitarias
-  └── pom.xml                                # Dependencias de Maven
+sgc-backend/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── mx/imt/sgc/
+│   │   │       ├── config/         # Configuraciones (seguridad, JPA, etc.)
+│   │   │       ├── controller/     # Endpoints REST
+│   │   │       ├── entity/         # Entidades JPA (Usuario, Proyecto, etc.)
+│   │   │       ├── repository/     # Repositorios JPA
+│   │   │       ├── service/        # Lógica de negocio
+│   │   │       ├── dto/            # Objetos de transferencia de datos
+│   │   │       └── SgcApplication.java  # Clase principal
+│   │   └── resources/
+│   │       ├── application.properties  # Configuración (DB, JWT, etc.)
+│   │       └── static/             # Archivos estáticos (si los necesitas)
+│   └── test/                       # Pruebas unitarias
+├── pom.xml                        # Dependencias Maven
+└── README.md                      # Documentación
 ```
 ```
 /frontend

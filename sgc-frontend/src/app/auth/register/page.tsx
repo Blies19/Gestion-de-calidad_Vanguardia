@@ -1,81 +1,78 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    email: "",
-    passwordHash: "",
-    rol: "Investigador",
+    nombre: '',
+    correo: '',
+    password: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const [error, setError] = useState('');
+  const [mensaje, setMensaje] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    setMensaje('');
+
     try {
-      const response = await axios.post("http://localhost:8080/auth/register", formData);
-      console.log("Usuario registrado:", response.data);
-      alert("Registro exitoso");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error al registrar");
+      const response = await axios.post('http://localhost:8081/auth/register', formData);
+      setMensaje('Registro exitoso');
+      setFormData({ nombre: '', correo: '', password: '' });
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Error al registrar');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-4">Registro</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Crear cuenta</h2>
+
+        {mensaje && <div className="bg-green-100 text-green-800 p-2 mb-4 rounded">{mensaje}</div>}
+        {error && <div className="bg-red-100 text-red-800 p-2 mb-4 rounded">{error}</div>}
+
         <input
-          type="text"
           name="nombre"
           placeholder="Nombre"
           value={formData.nombre}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+          required
         />
+
         <input
-          type="text"
-          name="apellido"
-          placeholder="Apellido"
-          value={formData.apellido}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
+          name="correo"
           type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
+          placeholder="Correo electrónico"
+          value={formData.correo}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+          required
         />
+
         <input
+          name="password"
           type="password"
-          name="passwordHash"
           placeholder="Contraseña"
-          value={formData.passwordHash}
+          value={formData.password}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+          required
         />
-        <select
-          name="rol"
-          value={formData.rol}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
+
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded w-full"
         >
-          <option value="Admin">Admin</option>
-          <option value="Investigador">Investigador</option>
-          <option value="Auditor">Auditor</option>
-        </select>
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-          Registrar
+          Registrarse
         </button>
       </form>
     </div>
