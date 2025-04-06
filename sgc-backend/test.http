@@ -1,0 +1,10 @@
+POST http://localhost:8081/auth/register
+Content-Type: application/json
+
+{
+    "nombre": "Leo",
+    "apellido": "Señor",
+    "email": "leo@imt.mx",
+    "passwordHash": "12345",
+    "rol": "Admin"
+}
