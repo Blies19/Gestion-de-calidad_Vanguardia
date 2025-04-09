@@ -1,14 +1,15 @@
 package com.example.sgc_backend.entity;
 
-import lombok.Data;
-import lombok.Builder;  // Agregar esta importación
+import lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usuario")
 @Data
-@Builder  // Aquí agregamos la anotación Builder
+@Builder
+@NoArgsConstructor // Constructor sin argumentos requerido por Hibernate
+@AllArgsConstructor // Constructor con todos los argumentos
 public class Usuario {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -31,9 +32,11 @@ public class Usuario {
     @Column(nullable = false)
     private Rol rol;
 
+    @Builder.Default
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro = LocalDateTime.now();
 
+    @Builder.Default
     @Column(nullable = false)
     private boolean activo = true;
 

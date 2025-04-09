@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UsuarioService {
     @Autowired
@@ -22,10 +25,19 @@ public class UsuarioService {
             throw new IllegalArgumentException("La contraseña es obligatoria");
         }
         usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
-        return usuarioRepository.save(usuario);
+        return usuarioRepository.save(usuario); // save devuelve Usuario, no Optional
     }
 
-    public Usuario findByEmail(String email) {
+    public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
+
+    public Usuario save(Usuario usuario) {
+        usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
+        return usuarioRepository.save(usuario);
     }
 }

@@ -1,9 +1,7 @@
-
-
 POST http://localhost:8081/auth/login
 Content-Type: application/json
 
 {
-    "email": "leo@imt.mx",
-    "password": "12345"
+    "email": "ldorantes@imt.mx",
+    "password": "123"
 }

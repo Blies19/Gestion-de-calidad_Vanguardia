@@ -1,19 +1,40 @@
-// sgc-frontend/lib/api.ts
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8081"; // Ajusta si usas proxy
+// src/lib/api.ts
+const BASE_URL = "http://localhost:8081/auth";
 
-export async function post<T>(path: string, data: any): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+export const register = async (userData) => {
+    try {
+        const response = await fetch(`${BASE_URL}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Error al registrar");
+        }
+        return response.json();
+    } catch (error) {
+        throw new Error(error.message || "Error en la solicitud de registro");
+    }
+};
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.message || "Error en la solicitud");
-  }
-
-  return res.json();
-}
+export const login = async (credentials) => {
+    try {
+        const response = await fetch(`${BASE_URL}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Error al iniciar sesión");
+        }
+        return response.json();
+    } catch (error) {
+        throw new Error(error.message || "Error en la solicitud de login");
+    }
+};
