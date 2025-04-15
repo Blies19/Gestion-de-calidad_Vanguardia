@@ -1,3 +1,4 @@
+// src/main/java/com/example/sgc_backend/service/UsuarioService.java
 package com.example.sgc_backend.service;
 
 import com.example.sgc_backend.entity.Usuario;
@@ -8,25 +9,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public Usuario registrarUsuario(Usuario usuario) {
-        if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("El email es obligatorio");
-        }
-        if (usuario.getPasswordHash() == null || usuario.getPasswordHash().isEmpty()) {
-            throw new IllegalArgumentException("La contraseña es obligatoria");
-        }
-        usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
-        return usuarioRepository.save(usuario); // save devuelve Usuario, no Optional
-    }
 
     public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
@@ -36,8 +28,22 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    public Optional<Usuario> findById(UUID id) {
+        return usuarioRepository.findById(id);
+    }
+
     public Usuario save(Usuario usuario) {
-        usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
+        // Si es un nuevo usuario o la contraseña ha cambiado, codificarla
+        if (usuario.getId() == null || usuario.getPasswordHash() != null) {
+            usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
+        } else {
+            // Si es una actualización y no se proporcionó una nueva contraseña,
+            // mantener la contraseña existente
+            Optional<Usuario> existingUsuario = usuarioRepository.findById(usuario.getId());
+            if (existingUsuario.isPresent()) {
+                usuario.setPasswordHash(existingUsuario.get().getPasswordHash());
+            }
+        }
         return usuarioRepository.save(usuario);
     }
 }

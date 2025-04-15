@@ -1,46 +1,133 @@
 /* src/app/globals.css */
+:root {
+  --background: #f5f9ff; /* Azul muy claro para el fondo, inspirado en el cielo */
+  --text: #2d3748; /* Gris oscuro para el texto, legible pero suave */
+  --card-background: #ffffff; /* Blanco puro para las tarjetas */
+  --border: #e2e8f0; /* Gris claro para bordes */
+  --primary: #4a90e2; /* Azul medio para botones y elementos principales */
+  --primary-hover: #357abd; /* Azul un poco más oscuro para hover */
+  --danger: #e53e3e; /* Rojo suave para acciones peligrosas */
+  --success: #38a169; /* Verde suave para acciones exitosas */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra más suave */
+  --navbar-bg: #4a90e2; /* Azul medio para el navbar */
+  --footer-bg: #4a90e2; /* Azul medio para el footer */
+}
+
+[data-theme="dark"] {
+  --background: #1a202c; /* Fondo oscuro pero no negro puro */
+  --text: #e2e8f0; /* Texto claro para buena legibilidad */
+  --card-background: #2d3748; /* Gris oscuro para tarjetas */
+  --border: #4a5568; /* Gris medio para bordes */
+  --primary: #63b3ed; /* Azul más claro para el modo oscuro */
+  --primary-hover: #4299e1; /* Azul un poco más oscuro para hover */
+  --danger: #f56565; /* Rojo más claro para el modo oscuro */
+  --success: #68d391; /* Verde más claro para el modo oscuro */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  --navbar-bg: #2b6cb0; /* Azul más oscuro para el navbar */
+  --footer-bg: #2b6cb0; /* Azul más oscuro para el footer */
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2 {
+  color: var(--text);
 }
 
 form {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background: white;
+  background: var(--card-background);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
-input {
+input, select {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background: var(--card-background);
+  color: var(--text);
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: var(--primary);
+  outline: none;
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-hover);
 }
 
 .error {
-  color: red;
-  background-color: #ffe6e6;
+  color: var(--danger);
+  background-color: rgba(var(--danger), 0.1);
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-background);
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+a:hover {
+  background-color: var(--primary-hover);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-background);
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  padding: 15px;
+  background-color: var(--primary);
+  color: white;
+  text-align: left;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid var(--border);
 }

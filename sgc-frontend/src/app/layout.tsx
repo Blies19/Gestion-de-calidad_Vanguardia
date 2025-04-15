@@ -1,6 +1,9 @@
 // src/app/layout.tsx
-import './globals.css'; // Asegúrate de que esta línea esté presente
+import './globals.css';
 import type { Metadata } from 'next';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { ThemeProvider } from '../context/ThemeContext';
 
 export const metadata: Metadata = {
     title: 'Sistema de Gestión de Calidad',
@@ -14,7 +17,13 @@ export default function RootLayout({
 }) {
     return (
         <html lang="es">
-            <body>{children}</body>
+            <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+                <ThemeProvider>
+                    <Navbar />
+                    <main style={{ flex: 1 }}>{children}</main>
+                    <Footer />
+                </ThemeProvider>
+            </body>
         </html>
     );
 }

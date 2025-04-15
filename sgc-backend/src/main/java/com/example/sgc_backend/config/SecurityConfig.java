@@ -23,6 +23,7 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll() // Permite acceso público a /auth/register y /auth/login
+                .requestMatchers("/api/usuarios/**").hasRole("Admin") // Solo usuarios con rol Admin pueden acceder
                 .anyRequest().authenticated() // Todo lo demás requiere autenticación
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

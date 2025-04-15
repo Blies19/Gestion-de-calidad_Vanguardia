@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { register } from '../../../lib/api'; // Ajustamos la ruta relativa desde auth/register
+import { register } from '../../../lib/api';
 
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -10,11 +10,11 @@ export default function RegisterPage() {
         apellido: '',
         email: '',
         passwordHash: '',
-        rol: 'Admin',
+        rol: 'Admin', // Valor inicial
     });
     const [error, setError] = useState('');
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -27,7 +27,6 @@ export default function RegisterPage() {
             await register(formData);
             alert('Registro exitoso');
             setError('');
-            // Redirigir a login
             window.location.href = '/auth/login';
         } catch (err) {
             setError(err.message || 'Error al registrar');
@@ -71,6 +70,16 @@ export default function RegisterPage() {
                     onChange={handleChange}
                     required
                 />
+                <select
+                    name="rol"
+                    value={formData.rol}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="Admin">Admin</option>
+                    <option value="Investigador">Investigador</option>
+                    <option value="Auditor">Auditor</option>
+                </select>
                 <button type="submit">Registrarse</button>
             </form>
         </div>
