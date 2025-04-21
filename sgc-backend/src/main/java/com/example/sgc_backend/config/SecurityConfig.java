@@ -1,4 +1,3 @@
-// src/main/java/com/example/sgc_backend/config/SecurityConfig.java
 package com.example.sgc_backend.config;
 
 import org.springframework.context.annotation.Bean;
@@ -20,11 +19,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            .csrf(csrf -> csrf.disable()) // Cambiado de csrf().disable() a csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll() // Permite acceso público a /auth/register y /auth/login
-                .requestMatchers("/api/usuarios/**").hasRole("Admin") // Solo usuarios con rol Admin pueden acceder
-                .anyRequest().authenticated() // Todo lo demás requiere autenticación
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/api/usuarios/**").hasRole("Admin")
+                .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

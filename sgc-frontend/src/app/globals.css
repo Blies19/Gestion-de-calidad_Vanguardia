@@ -1,43 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
 /* src/app/globals.css */
 :root {
-  --background: #f5f9ff; /* Azul muy claro para el fondo, inspirado en el cielo */
-  --text: #2d3748; /* Gris oscuro para el texto, legible pero suave */
-  --card-background: #ffffff; /* Blanco puro para las tarjetas */
-  --border: #e2e8f0; /* Gris claro para bordes */
-  --primary: #4a90e2; /* Azul medio para botones y elementos principales */
-  --primary-hover: #357abd; /* Azul un poco más oscuro para hover */
-  --danger: #e53e3e; /* Rojo suave para acciones peligrosas */
-  --success: #38a169; /* Verde suave para acciones exitosas */
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra más suave */
-  --navbar-bg: #4a90e2; /* Azul medio para el navbar */
-  --footer-bg: #4a90e2; /* Azul medio para el footer */
+  --background: #f5f9ff;
+  --text: #2d3748;
+  --card-background: #ffffff;
+  --border: #e2e8f0;
+  --primary: #4a90e2;
+  --primary-hover: #357abd;
+  --danger: #e53e3e;
+  --success: #38a169;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --navbar-bg: #4a90e2;
+  --footer-bg: #4a90e2;
 }
 
 [data-theme="dark"] {
-  --background: #1a202c; /* Fondo oscuro pero no negro puro */
-  --text: #e2e8f0; /* Texto claro para buena legibilidad */
-  --card-background: #2d3748; /* Gris oscuro para tarjetas */
-  --border: #4a5568; /* Gris medio para bordes */
-  --primary: #63b3ed; /* Azul más claro para el modo oscuro */
-  --primary-hover: #4299e1; /* Azul un poco más oscuro para hover */
-  --danger: #f56565; /* Rojo más claro para el modo oscuro */
-  --success: #68d391; /* Verde más claro para el modo oscuro */
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-  --navbar-bg: #2b6cb0; /* Azul más oscuro para el navbar */
-  --footer-bg: #2b6cb0; /* Azul más oscuro para el footer */
+  --background: #1a202c;
+  --text: #e2e8f0;
+  --card-background: #2d3748;
+  --border: #4a5568;
+  --primary: #63b3ed;
+  --primary-hover: #4299e1;
+  --danger: #f56565;
+  --success: #68d391;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  --navbar-bg: #2b6cb0;
+  --footer-bg: #2b6cb0;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: var(--background);
-  color: var(--text);
+  /* Eliminamos background-color y color para que Tailwind tenga control */
   transition: background-color 0.3s, color 0.3s;
 }
 
-h1, h2 {
+/* Aplicamos los estilos solo a elementos con una clase específica */
+.theme-background {
+  background-color: var(--background);
   color: var(--text);
+}
+
+h1, h2 {
+  /* Eliminamos color para que Tailwind tenga control */
 }
 
 form {
@@ -67,7 +99,7 @@ input:focus, select:focus {
   outline: none;
 }
 
-button {
+button:not([class]) {
   width: 100%;
   padding: 10px;
   background-color: var(--primary);
@@ -79,7 +111,7 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
+button:not([class]):hover {
   background-color: var(--primary-hover);
 }
 
