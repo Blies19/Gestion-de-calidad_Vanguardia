@@ -10,7 +10,7 @@ Principiantes en desarrollo web, con conocimientos básicos de HTML y curiosidad
 
 ## Duración
 
-1 hora
+30 min
 
 ## Requisitos
 
@@ -32,6 +32,28 @@ Principiantes en desarrollo web, con conocimientos básicos de HTML y curiosidad
 - Demo rápida: Mostrar un formulario que guarda una tarea (ej. "Comprar leche") y confirma el registro.
 
 ### 2. Configuración del entorno (10 minutos)
+
+```
+todo-workshop/
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/example/todo/
+│   │   │       ├── Application.java
+│   │   │       ├── model/
+│   │   │       │   └── Tarea.java
+│   │   │       ├── repository/
+│   │   │       │   └── TareaRepository.java
+│   │   │       └── controller/
+│   │   │           └── TareaController.java
+│   │   ├── resources/
+│   │   │   └── application.properties
+│   │   └── public/
+│   │       └── index.html
+├── database.sql
+├── README.md
+```
 
 - **Instalar herramientas**:
   - Verificar Java 17: `java -version`.
@@ -78,7 +100,7 @@ Principiantes en desarrollo web, con conocimientos básicos de HTML y curiosidad
   <body class="bg-gray-100">
       <div class="container mx-auto mt-10 max-w-md">
           <h2 class="text-2xl font-bold mb-6 text-center">Añadir Tarea</h2>
-          <form action="http://localhost:8080/api/tareas" method="POST" class="space-y-4">
+          <form action="http://localhost:8082/api/tareas" method="POST" class="space-y-4">
               <div>
                   <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
                   <input type="text" id="titulo" name="titulo" required
