@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -31,7 +30,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar />
       <main className="flex flex-col items-center justify-center h-[calc(100vh-8rem)] px-4">
         <h2 className="text-4xl md:text-5xl font-bold text-blue-400 mb-4 tracking-tight animate-fadeIn">
           Bienvenido al Sistema de Gestión de calidad

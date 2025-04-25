@@ -2,164 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
   }
-}
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-.animation-delay-200 {
-  animation-delay: 0.2s;
-}
-
-.animation-delay-400 {
-  animation-delay: 0.4s;
-}
-
-/* src/app/globals.css */
-:root {
-  --background: #f5f9ff;
-  --text: #2d3748;
-  --card-background: #ffffff;
-  --border: #e2e8f0;
-  --primary: #4a90e2;
-  --primary-hover: #357abd;
-  --danger: #e53e3e;
-  --success: #38a169;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  --navbar-bg: #4a90e2;
-  --footer-bg: #4a90e2;
-}
-
-[data-theme="dark"] {
-  --background: #1a202c;
-  --text: #e2e8f0;
-  --card-background: #2d3748;
-  --border: #4a5568;
-  --primary: #63b3ed;
-  --primary-hover: #4299e1;
-  --danger: #f56565;
-  --success: #68d391;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  --navbar-bg: #2b6cb0;
-  --footer-bg: #2b6cb0;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  /* Eliminamos background-color y color para que Tailwind tenga control */
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Aplicamos los estilos solo a elementos con una clase específica */
-.theme-background {
-  background-color: var(--background);
-  color: var(--text);
-}
-
-h1, h2 {
-  /* Eliminamos color para que Tailwind tenga control */
-}
-
-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background: var(--card-background);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 16px;
-  background: var(--card-background);
-  color: var(--text);
-  transition: border-color 0.3s;
-}
-
-input:focus, select:focus {
-  border-color: var(--primary);
-  outline: none;
-}
-
-button:not([class]) {
-  width: 100%;
-  padding: 10px;
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-button:not([class]):hover {
-  background-color: var(--primary-hover);
-}
-
-.error {
-  color: var(--danger);
-  background-color: rgba(var(--danger), 0.1);
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--card-background);
-  margin-bottom: 5px;
-  border-radius: 4px;
-}
-
-a:hover {
-  background-color: var(--primary-hover);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--card-background);
-  box-shadow: var(--shadow);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-th {
-  padding: 15px;
-  background-color: var(--primary);
-  color: white;
-  text-align: left;
-}
-
-td {
-  padding: 15px;
-  border-bottom: 1px solid var(--border);
+  body {
+    @apply bg-background text-foreground;
+  }
 }

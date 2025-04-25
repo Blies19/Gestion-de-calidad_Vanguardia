@@ -26,11 +26,9 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*":["*"]
     },
     "plugins": [
       {
@@ -42,8 +40,10 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
+    ".next/types/**/*.ts",
+    "tailwind.config.js", 
+    "tailwind.config.ts"],
+
   "exclude": [
     "node_modules"
   ]

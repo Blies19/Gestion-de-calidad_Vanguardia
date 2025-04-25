@@ -40,22 +40,11 @@ export default function Navbar() {
         SkywardServices
       </h1>
       <nav className="flex items-center space-x-4">
-        {!isAuthenticated ? (
-          <>
-            <Link
-              href="/auth/login"
-              className="text-blue-200 hover:text-white transition duration-300"
-            >
-              Inicio
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-blue-200 hover:text-white transition duration-300"
-            >
-              Dashboard
-            </Link>
-          </>
-        ) : (
+        <Link href="/" className="text-blue-200 hover:text-white">Inicio</Link>
+        <Link href="/dashboard" className="text-blue-200 hover:text-white">Dashboard</Link>
+        <Link href="/documents" className="text-blue-200 hover:text-white">Documentos</Link>
+
+        {isAuthenticated && (
           <>
             <div className="flex items-center space-x-2">
               <FaUser className="text-white bg-blue-500 p-1 rounded-full" />

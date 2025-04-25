@@ -1,7 +1,7 @@
 // src/main/java/com/example/sgc_backend/service/UsuarioService.java
 package com.example.sgc_backend.service;
 
-import com.example.sgc_backend.entity.Usuario;
+import com.example.sgc_backend.model.Usuario;
 import com.example.sgc_backend.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

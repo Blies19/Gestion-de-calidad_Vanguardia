@@ -1,6 +1,6 @@
 package com.example.sgc_backend.repository;
 
-import com.example.sgc_backend.entity.Usuario;
+import com.example.sgc_backend.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

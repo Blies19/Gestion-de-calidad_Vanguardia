@@ -1,7 +1,7 @@
 // src/main/java/com/example/sgc_backend/controller/UsuarioController.java
 package com.example.sgc_backend.controller;
 
-import com.example.sgc_backend.entity.Usuario;
+import com.example.sgc_backend.model.Usuario;
 import com.example.sgc_backend.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

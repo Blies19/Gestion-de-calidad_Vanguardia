@@ -1,6 +1,6 @@
 import './globals.css';
+import Navbar from "@/components/Navbar";
 
-// Define el tipo de las props del componente RootLayout
 type RootLayoutProps = {
   children: React.ReactNode;
 };
@@ -12,8 +12,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="es">
+      <body>
+        <Navbar /> {/* Aquí renderizamos la barra superior */}
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
