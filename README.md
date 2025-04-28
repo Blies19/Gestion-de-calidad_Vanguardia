@@ -1,3 +1,5 @@
+![Image](https://github.com/user-attachments/assets/078e5a36-024c-48b2-932c-2805e0daac50)
+
 # Gestion-de-calidad_Vanguardia
 ```
 sgc-backend/
