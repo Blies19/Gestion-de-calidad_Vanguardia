@@ -9,6 +9,8 @@ import com.example.sgc_backend.repository.CarpetaRepository;
 import com.example.sgc_backend.repository.ProyectoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.sgc_backend.model.Documento.TipoDocumento;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,25 +36,25 @@ public class DocumentoService {
         return documentoRepository.findByCarpeta_IdCarpeta(carpetaId);
     }
 
-    public Documento guardarDocumento(MultipartFile file, UUID carpetaId, UUID proyectoId, Usuario usuario) throws IOException {
+    public Documento guardarDocumento(MultipartFile file, UUID carpetaId, UUID proyectoId, Usuario usuario, String tipoDocumento) throws IOException {
         Carpeta carpeta = carpetaRepository.findById(carpetaId)
                 .orElseThrow(() -> new RuntimeException("Carpeta no encontrada"));
         Proyecto proyecto = proyectoRepository.findById(proyectoId)
                 .orElseThrow(() -> new RuntimeException("Proyecto no encontrado"));
-
-        // Guarda el archivo en el sistema de archivos
+    
         String uploadDir = "uploads/";
         Files.createDirectories(Paths.get(uploadDir));
         Path filePath = Paths.get(uploadDir + file.getOriginalFilename());
         Files.write(filePath, file.getBytes());
-
+    
         Documento documento = new Documento();
         documento.setNombre(file.getOriginalFilename());
         documento.setRutaArchivo(filePath.toString());
         documento.setCarpeta(carpeta);
         documento.setProyecto(proyecto);
         documento.setAutor(usuario);
-
+        documento.setTipoDocumento(TipoDocumento.valueOf(tipoDocumento)); 
+    
         return documentoRepository.save(documento);
     }
 

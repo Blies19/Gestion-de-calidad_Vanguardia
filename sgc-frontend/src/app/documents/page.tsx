@@ -51,7 +51,6 @@ export default function DocumentsPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
-
     const headers = { Authorization: `Bearer ${token}` };
 
     Promise.all([
@@ -59,13 +58,7 @@ export default function DocumentsPage() {
       fetch("http://localhost:8081/api/carpetas", { headers }),
     ])
       .then(async ([proyectosRes, carpetasRes]) => {
-        if (proyectosRes.status === 403 || carpetasRes.status === 403) {
-          router.push("/auth/login");
-          return;
-        }
-        if (!proyectosRes.ok || !carpetasRes.ok) {
-          throw new Error("Error cargando proyectos o carpetas");
-        }
+        if (!proyectosRes.ok || !carpetasRes.ok) throw new Error();
         const proyectosData = await proyectosRes.json();
         const carpetasData = await carpetasRes.json();
         setProyectos(proyectosData);
@@ -94,18 +87,10 @@ export default function DocumentsPage() {
         body: formData,
       });
 
-      if (res.status === 403) {
-        router.push("/auth/login");
-        return;
-      }
-
-      if (!res.ok) throw new Error("Error al subir documento");
+      if (!res.ok) throw new Error();
       const newDoc = await res.json();
-      if (refreshOnUpload) {
-        loadDocumentos(selectedCarpeta);
-      } else {
-        setDocumentos((prev) => [...prev, newDoc]);
-      }
+      if (refreshOnUpload) loadDocumentos(selectedCarpeta);
+      else setDocumentos((prev) => [...prev, newDoc]);
     } catch {
       setError("Error al subir documento");
     }
@@ -126,74 +111,81 @@ export default function DocumentsPage() {
   };
 
   return (
-    <main className="p-6 bg-gray-950 min-h-screen text-white">
-      <h1 className="text-3xl font-bold mb-6">Gestión de Documentos</h1>
-
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+    <main className="min-h-screen bg-gradient-to-tr from-gray-900 via-gray-950 to-black text-white p-8">
+      <h1 className="text-4xl font-bold mb-8">Gestión de Documentos</h1>
+      {error && <p className="text-red-400 font-medium mb-4">{error}</p>}
 
       <form
         onSubmit={handleUpload}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6"
+        className="bg-gray-800 border border-gray-700 rounded-lg p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 shadow-md"
       >
         <div>
-          <Label>Selecciona una carpeta</Label>
-          <Select onValueChange={(v: string) => {
-            setSelectedCarpeta(v);
-            loadDocumentos(v);
-          }}>
-            <SelectTrigger>
+          <Label className="text-white">Selecciona una carpeta</Label>
+          <Select onValueChange={(v) => { setSelectedCarpeta(v); loadDocumentos(v); }}>
+            <SelectTrigger className="bg-gray-900 text-white border border-gray-600">
               <SelectValue placeholder="Carpeta" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-gray-800 text-white">
               {carpetas.map((c) => (
-                <SelectItem key={c.idCarpeta} value={c.idCarpeta}>
-                  {c.nombre}
-                </SelectItem>
+                <SelectItem key={c.idCarpeta} value={c.idCarpeta}>{c.nombre}</SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
         <div>
-          <Label>Selecciona un proyecto</Label>
-          <Select onValueChange={(v: string) => setSelectedProyecto(v)}>
-            <SelectTrigger>
+          <Label className="text-white">Selecciona un proyecto</Label>
+          <Select onValueChange={(v) => setSelectedProyecto(v)}>
+            <SelectTrigger className="bg-gray-900 text-white border border-gray-600">
               <SelectValue placeholder="Proyecto" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-gray-800 text-white">
               {proyectos.map((p) => (
-                <SelectItem key={p.idProyecto} value={p.idProyecto}>
-                  {p.nombre}
-                </SelectItem>
+                <SelectItem key={p.idProyecto} value={p.idProyecto}>{p.nombre}</SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
         <div>
-          <Label>Archivo</Label>
-          <Input type="file" onChange={(e) => e.target.files && setFile(e.target.files[0])} />
+          <Label className="text-white">Archivo</Label>
+          <Input
+            type="file"
+            onChange={(e) => e.target.files && setFile(e.target.files[0])}
+            className="bg-gray-900 text-white border border-gray-600"
+          />
         </div>
 
-        <div className="flex items-center gap-2">
-          <Label>Recargar documentos al subir</Label>
-          <Switch checked={refreshOnUpload} onChange={(value) => setRefreshOnUpload(value)} />
+        <div className="flex items-center gap-3 col-span-full">
+        <Switch checked={refreshOnUpload} onChange={(value) => setRefreshOnUpload(value)} />
+
+          <Label className="text-white">Recargar documentos al subir</Label>
         </div>
 
-        <Button type="submit">Subir documento</Button>
+        <div className="col-span-full">
+          <Button
+            type="submit"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold"
+          >
+            Subir documento
+          </Button>
+        </div>
       </form>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {documentos.map((doc) => (
-          <Card key={doc.idDocumento} className="bg-gray-800">
-            <CardContent className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{doc.nombre}</h2>
-              <p className="text-sm text-gray-400">Proyecto: {doc.proyecto.nombre}</p>
-              <p className="text-sm text-gray-500">
+          <Card
+            key={doc.idDocumento}
+            className="bg-gray-800 border border-gray-700 rounded-lg shadow hover:shadow-lg transition-shadow"
+          >
+            <CardContent className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-1">{doc.nombre}</h2>
+              <p className="text-sm text-gray-300 mb-1">Proyecto: {doc.proyecto.nombre}</p>
+              <p className="text-sm text-gray-400 mb-3">
                 Subido: {new Date(doc.fechaSubida).toLocaleString()}
               </p>
               <Button
-                className="mt-4"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
                 onClick={() => {
                   const token = localStorage.getItem("token");
                   fetch(`http://localhost:8081/api/documentos/download/${doc.idDocumento}`, {

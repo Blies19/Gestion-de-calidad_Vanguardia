@@ -33,18 +33,19 @@ public class DocumentoController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<Documento> subirDocumento(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("carpetaId") UUID carpetaId,
-            @RequestParam("proyectoId") UUID proyectoId,
-            @AuthenticationPrincipal Usuario usuario) {
-        try {
-            Documento nuevoDocumento = documentoService.guardarDocumento(file, carpetaId, proyectoId, usuario);
-            return ResponseEntity.ok(nuevoDocumento);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+public ResponseEntity<Documento> subirDocumento(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("carpetaId") UUID carpetaId,
+        @RequestParam("proyectoId") UUID proyectoId,
+        @RequestParam("tipoDocumento") String tipoDocumento, // <- agregado
+        @AuthenticationPrincipal Usuario usuario) {
+    try {
+        Documento nuevoDocumento = documentoService.guardarDocumento(file, carpetaId, proyectoId, usuario, tipoDocumento);
+        return ResponseEntity.ok(nuevoDocumento);
+    } catch (IOException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+}
 
     @GetMapping("/download/{idDocumento}")
     public ResponseEntity<byte[]> descargarDocumento(@PathVariable UUID idDocumento) {

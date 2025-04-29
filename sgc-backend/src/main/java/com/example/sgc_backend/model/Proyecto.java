@@ -1,8 +1,17 @@
 package com.example.sgc_backend.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "proyecto")
@@ -34,7 +43,7 @@ public class Proyecto {
     private Usuario responsable;
 
     public enum Tipo {
-        INTERNO, EXTERNO
+        INTERNO , EXTERNO
     }
 
     public enum Estado {
