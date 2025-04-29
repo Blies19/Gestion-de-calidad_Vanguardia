@@ -1,3 +1,5 @@
+// Archivo: src/main/java/com/example/sgc_backend/config/SecurityConfig.java
+
 package com.example.sgc_backend.config;
 
 import org.springframework.context.annotation.Bean;
@@ -8,9 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -19,15 +23,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Cambiado de csrf().disable() a csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/api/proyectos/**").permitAll()
+                .requestMatchers("/api/carpetas/**").permitAll()
                 .requestMatchers("/api/usuarios/**").hasRole("Admin")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
+
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -35,16 +44,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+        return source;
     }
 
     @Bean

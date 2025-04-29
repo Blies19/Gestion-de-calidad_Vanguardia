@@ -16,7 +16,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // Forzar el tema oscuro al cargar la página
     document.documentElement.setAttribute("data-theme", "dark");
   }, []);
 
@@ -51,20 +50,22 @@ export default function Home() {
             >
               Registrarse
             </Link>
-            <Link
-              href="/dashboard"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
-            >
-              Ir al DASHBOARD
-            </Link>
           </div>
         ) : (
-          <Link
-            href="/dashboard"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md animate-fadeIn animation-delay-400"
-          >
-            Ir al DASHBOARD
-          </Link>
+          <div className="space-x-4 animate-fadeIn animation-delay-400">
+            <Link
+              href="/dashboard/usuarios"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
+            >
+              Ver Usuarios
+            </Link>
+            <Link
+              href="/documents"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
+            >
+              Ver Documentos
+            </Link>
+          </div>
         )}
       </main>
       <footer className="bg-blue-600 p-4 text-center shadow-inner">

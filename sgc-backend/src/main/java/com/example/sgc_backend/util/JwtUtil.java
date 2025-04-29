@@ -34,8 +34,18 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+        } catch (Exception e) {
+            System.out.println("❌ Error al decodificar claims del token:");
+            e.printStackTrace();
+            throw e; // importante para que el filtro lo capture también
+        }
     }
+    
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
@@ -53,7 +63,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes())
                 .compact();
     }
 

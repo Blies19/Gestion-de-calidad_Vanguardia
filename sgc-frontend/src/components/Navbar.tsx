@@ -36,13 +36,13 @@ export default function Navbar() {
 
   return (
     <header className="bg-blue-600 p-4 flex justify-between items-center shadow-lg">
-      <h1 className="text-xl font-bold tracking-wide text-white">
+      <Link href="/" className="text-xl font-bold tracking-wide text-white hover:text-blue-300 transition-colors">
         SkywardServices
-      </h1>
+      </Link>
       <nav className="flex items-center space-x-4">
-        <Link href="/" className="text-blue-200 hover:text-white">Inicio</Link>
-        <Link href="/dashboard" className="text-blue-200 hover:text-white">Dashboard</Link>
-        <Link href="/documents" className="text-blue-200 hover:text-white">Documentos</Link>
+        <Link href="/" className="text-blue-200 hover:text-white">Home</Link>
+        <Link href="/dashboard/usuarios" className="text-blue-200 hover:text-white">Users</Link>
+        <Link href="/documents" className="text-blue-200 hover:text-white">Documents</Link>
 
         {isAuthenticated && (
           <>
