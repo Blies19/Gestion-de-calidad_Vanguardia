@@ -1,3 +1,5 @@
+![Image](https://github.com/user-attachments/assets/078e5a36-024c-48b2-932c-2805e0daac50)
+
 # Gestion-de-calidad_Vanguardia
 ```
 sgc-backend/
@@ -86,4 +88,40 @@ sgc-backend/
   ├── next.config.mjs              # Config de Next.js
   ├── tailwind.config.mjs          # Config de Tailwind
   └── tsconfig.json                # Config TypeScript
+```
+# Flujo de autenticación JWT + carga de Usuario completo
+
+```
+[ Frontend (Next.js) ]
+        |
+        |   (envía email + password)
+        v
+[ POST /auth/login ]
+        |
+        | (backend valida usuario y contraseña correctos)
+        v
+[ Genera Token JWT ]
+        |
+        | (JWT contiene: email + rol)
+        v
+[ Frontend guarda JWT en LocalStorage ]
+        |
+        |   (envía JWT en Authorization: Bearer <token>)
+        v
+[ Cada request al Backend ]
+        |
+        v
+[ JwtAuthenticationFilter ]
+        |
+        |-> extrae email y rol del token
+        |-> busca en la base de datos el `Usuario` completo usando el email
+        |-> si existe:
+              - crea Authentication con el `Usuario` completo
+              - guarda Authentication en el SecurityContext
+        v
+[ @AuthenticationPrincipal Usuario usuario ]
+        |
+        | (Ahora el controlador recibe el objeto completo de Usuario)
+        v
+[ Controladores seguros funcionando 🚀 ]
 ```
